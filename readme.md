@@ -23,7 +23,7 @@ php artisan key:generate
 ```bash
 php artisan migrate --seed
 ```
-8. Copy following lines at the end of extensions_custom.conf
+8. Copy following lines at the end of extensions_custom.conf and change dbuser and dbpass accordingly
 
 ```
 ; ------------------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ exten => s,n,GotoIf($[${REALCALLERIDNUM} = 403]?next)
 exten => s,n,MYSQL(Connect connid localhost dnc password dncdb)  ;this should work with stock PIAF, alter credentials to suit; can check for error condition here for ${conid} = ""
 exten => s,n,NoOp(Connected to DNC database with MySql connection id: ${connid})
 ; The following lines query DNC database and return the number of ocurences of the number to the variable 'count'
-exten => s,n,MYSQL(Query resultid ${connid} SELECT count(`id`) FROM `user1` WHERE `out` LIKE '%${OUTNUM:-10}%')
+exten => s,n,MYSQL(Query resultid ${connid} SELECT count(`id`) FROM `d_n_c_entities` WHERE `number` LIKE '%${OUTNUM:-10}%')
 exten => s,n,MYSQL(Fetch fetchid ${resultid} count)
 exten => s,n,MYSQL(Clear ${resultid}); can check for error condition here if "${fetchid}" = "0"
 exten => s,n,MYSQL(Disconnect ${connid})
