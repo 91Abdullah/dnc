@@ -43,7 +43,7 @@ exten => s,n,GotoIf($[${REALCALLERIDNUM} = 402]?next)
 exten => s,n,GotoIf($[${REALCALLERIDNUM} = 403]?next)
 ; This next section checks all outbound calls against the DNC list
 ; DON'T FORGET TO CHANGE 'password' TO YOUR ACTUAL DNC DATABASE PASSWORD!
-exten => s,n,MYSQL(Connect connid localhost dnc password dncdb)  ;this should work with stock PIAF, alter credentials to suit; can check for error condition here for ${conid} = ""
+exten => s,n,MYSQL(Connect connid localhost dbuser dbpass dnc)  ;this should work with stock PIAF, alter credentials to suit; can check for error condition here for ${conid} = ""
 exten => s,n,NoOp(Connected to DNC database with MySql connection id: ${connid})
 ; The following lines query DNC database and return the number of ocurences of the number to the variable 'count'
 exten => s,n,MYSQL(Query resultid ${connid} SELECT count(`id`) FROM `d_n_c_entities` WHERE `number` LIKE '%${OUTNUM:-10}%')
