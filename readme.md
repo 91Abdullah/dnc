@@ -18,7 +18,9 @@ cp .env.example .env
 php artisan key:generate
 ```
 5. Create MySQL databased named "dnc"
-```bash
 6. Edit .env file and update database credentials
+7. Run migrations
+```bash
+php artisan migrate --seed
 ```
 
